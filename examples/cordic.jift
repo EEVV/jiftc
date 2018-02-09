@@ -1,0 +1,63 @@
+# table of arctans
+con angles = [
+	0.785398163
+	0.463647609
+	0.244978663
+	0.124354994
+	0.062418810
+	0.031239833
+	0.015623728
+	0.007812341
+]
+
+struct Vec2 {
+	x f32
+	y f32
+}
+
+func rotate {vec Vec2, angle f32} -> Vec2 (
+	# make the angle be within range
+	while angle >= 1.570796327 (
+		vec = {vec.y, -vec.x}
+
+		angle -= 90.0
+	)
+
+	while angle <= -1.570796327 (
+		vec = {-vec.y, vec.x}
+
+		angle += 90.0
+	)
+
+	# 8 iterations of pseudo rotation
+	var n = 0
+	while n < 8 (
+		if angle > 0 (
+			# counter clockwise pseudo rotation
+
+			vec = {
+				vec.x - vec.y >> n
+				vec.y + vec.x >> n
+			}
+
+			angle -= angles[n]
+		) else (
+			# clockwise pseudo rotation
+
+			vec = {
+				vec.x + vec.y >> n
+				vec.y - vec.x >> n
+			}
+
+			angle += angles[n]
+		)
+
+		n += 1
+	)
+
+	# scaling factor
+	{
+		vec.x >> 1 + vec.x >> 3 - vec.x >> 5
+		vec.y >> 1 + vec.y >> 3 - vec.y >> 5
+	}
+)

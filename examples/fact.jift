@@ -1,0 +1,21 @@
+# traditional
+func fact1 {n u8} -> u8 (
+	var r = 1
+
+	while n > 0 (
+		r *= n
+
+		n -= 1
+	)
+
+	r
+)
+
+# recursive
+func fact2 {n u8} -> u8 (
+	if n < 2 (
+		1
+	) else (
+		n * fact{n - 1}
+	)
+)

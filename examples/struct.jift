@@ -1,0 +1,45 @@
+
+func eg1 (
+	# anonymous struct type
+	# contains fields with
+	# inferred types: 'b', 'c'
+	#     ↓↓↓↓↓↓
+	var a {b, c} = {0, 1}
+	#              ↑↑↑↑↑↑
+	# struct expression
+	
+	assert{a.b == 0}
+	assert{a.c == 1}
+	assert{a == {0, 1}}
+)
+
+func eg2 (
+	# anonymous struct type
+	# contains fields with
+	# defined types: 'b', 'c'
+	#     ↓↓↓↓↓↓↓↓↓↓↓↓
+	var a {b u8, c u8} = {0, 1}
+	#                    ↑↑↑↑↑↑
+	# struct expression
+
+	assert{a.b == 0}
+	assert{a.c == 1}
+	assert{a == {0, 1}}
+)
+
+# named struct
+struct Struct1 {
+	a u8
+	b u8
+}
+
+# name generic struct
+struct Struct2 <T> {
+	a T
+#   ↑↑↑
+# 'a' field is a type of 'T'
+
+	b T
+#   ↑↑↑
+# 'b' field is a type of 'T'
+}

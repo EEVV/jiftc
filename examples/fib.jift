@@ -1,0 +1,52 @@
+# preferred
+# using grouping
+func fib1 {n u8} -> u8 (
+	var a = 1
+	var b = 0
+
+	while n > 0 (
+		{a, b} = {a + b, a}
+
+		n -= 1
+	)
+
+	a
+}
+
+# using anonymous structs
+func fib2 {n u8} -> u8 (
+	var v {a, b} = {1, 0}
+
+	while n > 0 (
+		v = {v.a + v.b, v.a}
+
+		n -= 1
+	}
+
+	v.a
+}
+
+# traditional, nothing fancy
+func fib3 {n u8} -> u8 (
+	var a = 1
+	var b = 0
+
+	while n > 0 (
+		var t = a
+		a += b
+		b = t
+
+		n -= 1
+	)
+
+	a
+)
+
+# recursive
+func fib4 {n u8} -> u8 (
+	if n < 2 (
+		1
+	) else (
+		fib4{n - 2} + fib4{n - 1}
+	)
+)

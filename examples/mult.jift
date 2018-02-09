@@ -1,0 +1,14 @@
+func mult {a u8, b u8} -> u8 (
+	var result = 0
+
+	while a > 0 (
+		if a & 1 > 0 (
+			result += b
+		)
+
+		a >>= 1
+		b <<= 1
+	)
+
+	result
+)
